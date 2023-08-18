@@ -1,0 +1,10 @@
+.iconsList li {
+  color: #fff;
+  font-size: 30px;
+}
+
+.iconsList {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}

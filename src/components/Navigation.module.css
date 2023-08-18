@@ -6,4 +6,18 @@
   list-style: none;
   color: #ffffff;
   font-family: "Mulish", sans-serif;
+  font-size: 13px;
+}
+
+.logo {
+  height: 40px;
+  width: 110px;
+  color: #e50914;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
 }
