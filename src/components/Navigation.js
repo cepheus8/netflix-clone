@@ -3,7 +3,7 @@ import classes from "./Navigation.module.css";
 const Navigation = () => {
   return (
     <nav className={classes.navigation}>
-      <div className={classes.logo}>NETFLIX</div>
+      <p className={classes.logo}>NETFLIX</p>
       <ul className={classes.list}>
         <li>Strona główna</li>
         <li>Seriale i programy</li>
