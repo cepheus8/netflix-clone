@@ -1,12 +1,12 @@
 import "./index";
 import Header from "./components/Header";
-import MainMovie from "./components/MainMovie";
+import HomeSection from "./components/HomeSection";
 
 function App() {
   return (
     <>
       <Header />
-      <MainMovie />
+      <HomeSection />
     </>
   );
 }
