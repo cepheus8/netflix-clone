@@ -1,8 +1,10 @@
 import Slider from "./Slider";
 
 const section = [
-  { title: "Crime movies", Query: "Marvel" },
-  { title: "Spider-Man movies", Query: "Spider-Man" },
+  { title: "Marvel", Query: "Marvel" },
+  { title: "Spider-Man", Query: "Spider-Man" },
+  { title: "Filmy docenione przez krytyków", Query: "Love" },
+  { title: "Filmy sensacyjne", Query: "Kill" },
 ];
 
 const HomeSection = () => {

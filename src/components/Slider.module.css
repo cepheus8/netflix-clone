@@ -3,4 +3,28 @@
 .title {
   color: #fff;
   font-family: "Mulish", sans-serif;
+  font-size: 20px;
+}
+
+.posterList {
+  display: flex;
+  position: relative;
+  gap: 12px;
+  margin-bottom: 60px;
+}
+
+.arrowLeft {
+  color: #fff;
+  font-size: 80px;
+  position: absolute;
+  left: 0px;
+  top: 75px;
+}
+
+.arrowRight {
+  color: #fff;
+  font-size: 80px;
+  position: absolute;
+  right: 0px;
+  top: 75px;
 }
