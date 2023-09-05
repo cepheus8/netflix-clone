@@ -1,16 +1,12 @@
 import { VscSearch } from "react-icons/vsc";
-import { VscBell } from "react-icons/vsc";
 import { VscAccount } from "react-icons/vsc";
 import classes from "./Icons.module.css";
 
-const Icons = () => {
+const Icons = ({ onSearch, hideSearchIcon, isFocused }) => {
   return (
     <ul className={classes.iconsList}>
       <li>
-        <VscSearch />
-      </li>
-      <li>
-        <VscBell />
+        {!hideSearchIcon && !isFocused && <VscSearch onClick={onSearch} />}
       </li>
       <li>
         <VscAccount />

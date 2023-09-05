@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+.input {
+  width: 600px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 0;
+  background-color: #000000;
+  outline: none;
+  color: #fff;
+  font-family: "Mulish", sans-serif;
+}
+
+.input:focus {
+  border: 2px solid #fff;
+}
