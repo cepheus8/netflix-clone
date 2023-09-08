@@ -14,12 +14,11 @@ const Slider = ({ query, title }) => {
       );
 
       const res = await response.json();
-      console.log(res);
 
       setMovieData(res.Search);
     };
     fetchMovie();
-  }, []);
+  }, [query]);
 
   const slideHandler = (direction) => {
     const sliderLength = movieData.length - 8; // how to not hardcode

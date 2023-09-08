@@ -4,7 +4,7 @@ import classes from "./Header.module.css";
 import SearchBar from "./SearchBar";
 import { useState, useEffect, useRef } from "react";
 
-const Header = () => {
+const Header = (props) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef();
@@ -25,12 +25,20 @@ const Header = () => {
     setShowSearchBar(false);
   };
 
+  const searchResultsHandler = (input) => {
+    props.mainViewHandler(input);
+  };
+
   return (
     <header className={classes.header}>
       <Navigation />
       {showSearchBar && isFocus && (
         <div className={classes.searchBar}>
-          <SearchBar ref={inputRef} onBlur={removeSearchHandler} />
+          <SearchBar
+            ref={inputRef}
+            onBlur={removeSearchHandler}
+            onResults={searchResultsHandler}
+          />
         </div>
       )}
       <div>

@@ -6,8 +6,13 @@ const SearchBar = forwardRef((props, ref) => {
     props.onBlur();
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+    props.onResults(ref.current.value);
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <input
         type="text"
         placeholder="Tytuły, osoby, gatunki"
