@@ -1,16 +1,13 @@
+import classes from "./Poster.module.css";
+
 const Poster = ({ poster, translate }) => {
   return (
-    <img
-      src={poster}
-      alt="movie poster"
-      width="145px"
-      style={{
-        opacity: 0.7,
-        transform: `translate(-${translate * 100}%)`,
-        transitionProperty: "transform",
-        transitionDuration: "1s",
-      }}
-    />
+    <div
+      className={classes.container}
+      style={{ transform: `translate(-${translate * 100}%)` }}
+    >
+      <img src={poster} alt="movie poster" width="145px" />
+    </div>
   );
 };
 
