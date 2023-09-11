@@ -1,6 +1,10 @@
 import classes from "./Poster.module.css";
 
 const Poster = ({ poster, translate }) => {
+  // const showModalHandler() {
+
+  // }
+
   return (
     <div
       className={classes.container}

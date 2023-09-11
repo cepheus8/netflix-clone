@@ -15,6 +15,8 @@ const Slider = ({ query, title }) => {
 
       const res = await response.json();
 
+      console.log(res);
+
       setMovieData(res.Search);
     };
     fetchMovie();

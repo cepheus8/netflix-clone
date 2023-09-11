@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+.modal {
+  background-color: #000000;
+  height: 410px;
+  width: 800px;
+  display: block;
+  z-index: 1;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Mulish", sans-serif;
+  color: #fff;
+  gap: 15px;
+}
+
+.imageContainer {
+  height: 404px;
+  width: 300px;
+  background-image: url("../../public/SpiderMan.jpg");
+  background-size: 100%;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 30px;
+  grid-column-start: span 2;
+}
+
+.descriptionContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+  width: 500px;
+  height: 404px;
+  gap: 5px;
+}
