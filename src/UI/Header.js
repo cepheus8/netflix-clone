@@ -29,9 +29,13 @@ const Header = (props) => {
     props.mainViewHandler(input);
   };
 
+  const returnHandler = () => {
+    props.returnHomeHandler();
+  };
+
   return (
     <header className={classes.header}>
-      <Navigation />
+      <Navigation onReturn={returnHandler} />
       {showSearchBar && isFocus && (
         <div className={classes.searchBar}>
           <SearchBar

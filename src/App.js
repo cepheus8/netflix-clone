@@ -32,9 +32,16 @@ function App() {
     setShowModal(false);
   };
 
+  const returnHomeHandler = () => {
+    setIsSearching(false);
+  };
+
   return (
     <>
-      <Header mainViewHandler={mainViewHandler} />
+      <Header
+        mainViewHandler={mainViewHandler}
+        returnHomeHandler={returnHomeHandler}
+      />
       {showModal && (
         <MovieModal id={movieID} closeModalHandler={closeModalHandler} />
       )}

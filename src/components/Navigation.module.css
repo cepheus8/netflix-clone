@@ -13,9 +13,11 @@
   color: #e50914;
   font-size: 30px;
   font-weight: 400;
+  cursor: pointer;
 }
 
 .navigation {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }

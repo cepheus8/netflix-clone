@@ -37,7 +37,7 @@ const MovieModal = ({ id, closeModalHandler }) => {
         style={{ backgroundImage: `url(${movieData.Poster})` }}
       ></div>
       <div className={classes.descriptionContainer}>
-        <h3 className={classes.title}>Spider-Man</h3>
+        <h3 className={classes.title}>{movieData.Title}</h3>
         <div>
           <p>{movieData.Year}</p>
           <p>{movieData.Runtime}</p>

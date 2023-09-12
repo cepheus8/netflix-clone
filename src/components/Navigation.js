@@ -1,11 +1,17 @@
 import classes from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation = ({ onReturn }) => {
+  const returnHandler = () => {
+    onReturn();
+  };
+
   return (
     <nav className={classes.navigation}>
-      <p className={classes.logo}>NETFLIX</p>
+      <p className={classes.logo} on onClick={returnHandler}>
+        NETFLIX
+      </p>
       <ul className={classes.list}>
-        <li>Strona główna</li>
+        <li onClick={returnHandler}>Strona główna</li>
         <li>Moja lista</li>
       </ul>
     </nav>
