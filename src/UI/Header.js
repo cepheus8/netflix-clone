@@ -1,7 +1,7 @@
-import Navigation from "./Navigation";
-import Icons from "./Icons";
+import Navigation from "../components/Navigation";
+import Icons from "../components/Icons";
 import classes from "./Header.module.css";
-import SearchBar from "./SearchBar";
+import SearchBar from "../components/SearchBar";
 import { useState, useEffect, useRef } from "react";
 
 const Header = (props) => {

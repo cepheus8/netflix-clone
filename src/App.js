@@ -1,27 +1,54 @@
 import "./index";
-import Header from "./components/Header";
-import HomeSection from "./components/HomeSection";
-import Footer from "./components/Footer";
+import Header from "./UI/Header";
+import Footer from "./UI/Footer";
 import { useState } from "react";
-import Results from "./components/Results";
-import MovieModal from "./components/MovieModal";
+import ResultsView from "./UI/ResultsView";
+import SliderView from "./UI/SliderView";
+import MovieModal from "./UI/MovieModal";
+
+const section = [
+  { title: "Marvel", Query: "Marvel" },
+  { title: "Spider-Man", Query: "Spider-Man" },
+  { title: "Filmy docenione przez krytyków", Query: "Love" },
+  { title: "Filmy sensacyjne", Query: "Kill" },
+];
 
 function App() {
-  const [changeView, setChangeView] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [movieID, setmovieID] = useState();
 
   const mainViewHandler = (input) => {
-    setChangeView(true);
+    setIsSearching(true);
     setQuery(input);
+  };
+
+  const ModalHandler = (id) => {
+    setShowModal(true);
+    setmovieID(id);
+  };
+  const closeModalHandler = () => {
+    setShowModal(false);
   };
 
   return (
     <>
       <Header mainViewHandler={mainViewHandler} />
-      <MovieModal />
-      {!changeView ? <HomeSection /> : <Results query={query} />}
-
+      {showModal && (
+        <MovieModal id={movieID} closeModalHandler={closeModalHandler} />
+      )}
+      {isSearching ? (
+        <ResultsView onActionHandler={ModalHandler} query={query} />
+      ) : (
+        section.map((mov) => (
+          <SliderView
+            onActionHandler={ModalHandler}
+            title={mov.title}
+            query={mov.Query}
+          />
+        ))
+      )}
       <Footer />
     </>
   );

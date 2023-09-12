@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import classes from "./Results.module.css";
-import Poster from "./Poster";
+import classes from "./ResultsView.module.css";
+import Poster from "../components/Poster";
 
-const Results = (props) => {
+const Results = ({ query, onActionHandler }) => {
   const [movieData, setMovieData] = useState([]);
 
   useEffect(() => {
     const fetchMovie = async () => {
       const response = await fetch(
-        `http://www.omdbapi.com/?s=${props.query}&apikey=fd47b721`
+        `http://www.omdbapi.com/?s=${query}&apikey=fd47b721`
       );
 
       const res = await response.json();
@@ -17,12 +17,21 @@ const Results = (props) => {
       setMovieData(res.Search);
     };
     fetchMovie();
-  }, [props.query]);
+  }, [query]);
+
+  const showModalHandler = (id) => {
+    onActionHandler(id);
+  };
 
   return (
     <div className={classes.resultsList}>
       {movieData.map((mov) => (
-        <Poster key={mov.imdbID} poster={mov.Poster} />
+        <Poster
+          key={mov.imdbID}
+          poster={mov.Poster}
+          id={mov.imdbID}
+          onModal={showModalHandler}
+        />
       ))}
     </div>
   );

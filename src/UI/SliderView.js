@@ -1,9 +1,9 @@
-import Poster from "./Poster";
+import Poster from "../components/Poster";
 import { useEffect, useState } from "react";
-import classes from "./Slider.module.css";
+import classes from "./SliderView.module.css";
 import { VscChevronRight, VscChevronLeft } from "react-icons/vsc";
 
-const Slider = ({ query, title }) => {
+const SliderView = ({ query, title, onActionHandler }) => {
   const [movieData, setMovieData] = useState([]);
   const [slideIndex, setSlideIndex] = useState(0);
 
@@ -14,8 +14,6 @@ const Slider = ({ query, title }) => {
       );
 
       const res = await response.json();
-
-      console.log(res);
 
       setMovieData(res.Search);
     };
@@ -39,12 +37,22 @@ const Slider = ({ query, title }) => {
     }
   };
 
+  const showModalHandler = (id) => {
+    onActionHandler(id);
+  };
+
   return (
-    <>
+    <div>
       <p className={classes.title}>{title}</p>
       <div className={classes.posterList}>
         {movieData.map((mov) => (
-          <Poster key={mov.imdbID} poster={mov.Poster} translate={slideIndex} />
+          <Poster
+            key={mov.imdbID}
+            poster={mov.Poster}
+            id={mov.imdbID}
+            translate={slideIndex}
+            onModal={showModalHandler}
+          />
         ))}
         {slideIndex !== 0 ? (
           <button>
@@ -63,8 +71,8 @@ const Slider = ({ query, title }) => {
           />
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Slider;
+export default SliderView;
