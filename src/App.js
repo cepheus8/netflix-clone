@@ -5,6 +5,7 @@ import { useState } from "react";
 import ResultsView from "./UI/ResultsView";
 import SliderView from "./UI/SliderView";
 import MovieModal from "./UI/MovieModal";
+import Backdrop from "./UI/Backdrop";
 
 const section = [
   { title: "Marvel", Query: "Marvel" },
@@ -43,7 +44,10 @@ function App() {
         returnHomeHandler={returnHomeHandler}
       />
       {showModal && (
-        <MovieModal id={movieID} closeModalHandler={closeModalHandler} />
+        <>
+          <Backdrop closeModalHandler={closeModalHandler}/>
+          <MovieModal id={movieID} closeModalHandler={closeModalHandler} />
+        </>
       )}
       {isSearching ? (
         <ResultsView onActionHandler={ModalHandler} query={query} />

@@ -1,6 +1,7 @@
 .resultsList {
-  gap: 15px;
   margin-bottom: 60px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  gap: 15px 2px;
+  grid-template-columns: repeat(8, 1fr);
+  justify-items: center;
 }
