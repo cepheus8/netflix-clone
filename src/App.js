@@ -1,7 +1,7 @@
 import "./index";
 import Header from "./UI/Header";
 import Footer from "./UI/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ResultsView from "./UI/ResultsView";
 import SliderView from "./UI/SliderView";
 import MovieModal from "./UI/MovieModal";
@@ -19,6 +19,14 @@ function App() {
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [movieID, setmovieID] = useState();
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+  }, [showModal]);
 
   const mainViewHandler = (input) => {
     setIsSearching(true);
@@ -45,20 +53,24 @@ function App() {
       />
       {showModal && (
         <>
-          <Backdrop closeModalHandler={closeModalHandler}/>
+          <Backdrop closeModalHandler={closeModalHandler} />
           <MovieModal id={movieID} closeModalHandler={closeModalHandler} />
         </>
       )}
       {isSearching ? (
-        <ResultsView onActionHandler={ModalHandler} query={query} />
+        <div>
+          <ResultsView onActionHandler={ModalHandler} query={query} />
+        </div>
       ) : (
-        section.map((mov) => (
-          <SliderView
-            onActionHandler={ModalHandler}
-            title={mov.title}
-            query={mov.Query}
-          />
-        ))
+        <div>
+          {section.map((mov) => (
+            <SliderView
+              onActionHandler={ModalHandler}
+              title={mov.title}
+              query={mov.Query}
+            />
+          ))}
+        </div>
       )}
       <Footer />
     </>
