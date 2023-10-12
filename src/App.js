@@ -7,20 +7,26 @@ import SliderView from "./UI/SliderView";
 import MovieModal from "./UI/MovieModal";
 import Backdrop from "./UI/Backdrop";
 
-const section = [
-  { title: "Marvel", Query: "Marvel" },
-  { title: "Spider-Man", Query: "Spider-Man" },
-  { title: "Filmy docenione przez krytyków", Query: "Love" },
-  { title: "Filmy sensacyjne", Query: "Kill" },
-];
-
 function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [movieID, setmovieID] = useState();
+  const [moviesSlider, setMoviesSlider] = useState([]);
 
   useEffect(() => {
+    let moviesArray = [];
+    fetch(
+      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/HomeSection.json"
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        for (const key in data) {
+          moviesArray.push({ id: key, ...data[key] });
+        }
+        setMoviesSlider(moviesArray);
+      });
+
     if (showModal) {
       document.body.style.overflow = "hidden";
     } else {
@@ -63,11 +69,12 @@ function App() {
         </div>
       ) : (
         <div>
-          {section.map((mov) => (
+          {moviesSlider.map((mov) => (
             <SliderView
               onActionHandler={ModalHandler}
               title={mov.title}
               query={mov.Query}
+              key={mov.id}
             />
           ))}
         </div>
