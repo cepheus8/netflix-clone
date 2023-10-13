@@ -1,4 +1,5 @@
 import classes from "./Poster.module.css";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const Poster = ({ poster, translate, id, onModal }) => {
   const showModalHandler = () => {
@@ -13,6 +14,7 @@ const Poster = ({ poster, translate, id, onModal }) => {
       onClick={showModalHandler}
     >
       <img src={poster} alt="movie poster" width="145px" />
+      <AiOutlinePlusCircle className={classes.icon} />
     </div>
   );
 };

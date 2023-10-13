@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import classes from "./MovieModal.module.css";
 import { VscClose } from "react-icons/vsc";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const MovieModal = ({ id, closeModalHandler }) => {
   const [movieData, setMovieData] = useState();
@@ -37,7 +38,10 @@ const MovieModal = ({ id, closeModalHandler }) => {
         style={{ backgroundImage: `url(${movieData.Poster})` }}
       ></div>
       <div className={classes.descriptionContainer}>
-        <h3 className={classes.title}>{movieData.Title}</h3>
+        <div className={classes.title}>
+          <AiOutlinePlusCircle className={classes.iconAdd} />
+          <h3 className={classes.title}>{movieData.Title}</h3>
+        </div>
         <div>
           <p>{movieData.Year}</p>
           <p>{movieData.Runtime}</p>
@@ -50,7 +54,7 @@ const MovieModal = ({ id, closeModalHandler }) => {
         </div>
       </div>
       <button className={classes.button} onClick={hideModalHandler}>
-        <VscClose className={classes.icon} />
+        <VscClose className={classes.iconClose} />
       </button>
     </dialog>
   );

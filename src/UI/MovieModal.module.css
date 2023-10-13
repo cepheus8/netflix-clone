@@ -49,7 +49,18 @@
   background-color: #fff;
 }
 
-.icon {
-  font-size: 18px;
+.iconClose {
+  font-size: 20px;
   color: #000000;
+}
+
+.iconAdd {
+  color: #fff;
+  font-size: 30px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
