@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import classes from "./MovieModal.module.css";
 import { VscClose } from "react-icons/vsc";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import AppContext from "../context/appContext";
 
-const MovieModal = ({ id, closeModalHandler }) => {
+const MovieModal = () => {
   const [movieData, setMovieData] = useState();
+  const { closeModalHandler, id } = useContext(AppContext);
 
+  
   useEffect(() => {
     const fetchMovie = async () => {
       const response = await fetch(
@@ -18,10 +21,6 @@ const MovieModal = ({ id, closeModalHandler }) => {
     };
     fetchMovie();
   }, [id, movieData]);
-
-  const hideModalHandler = () => {
-    closeModalHandler();
-  };
 
   if (!movieData) {
     return (
@@ -53,7 +52,7 @@ const MovieModal = ({ id, closeModalHandler }) => {
           <p>Kraj: {movieData.Country}</p>
         </div>
       </div>
-      <button className={classes.button} onClick={hideModalHandler}>
+      <button className={classes.button} onClick={closeModalHandler}>
         <VscClose className={classes.iconClose} />
       </button>
     </dialog>

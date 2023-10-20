@@ -1,12 +1,15 @@
 import Poster from "../components/Poster";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import classes from "./SliderView.module.css";
 import { VscChevronRight, VscChevronLeft } from "react-icons/vsc";
+import AppContext from "../context/appContext";
 
-const SliderView = ({ query, title, onActionHandler }) => {
+const SliderView = ({ query, title }) => {
   const [movieData, setMovieData] = useState([]);
   const [slideIndex, setSlideIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const { openModalHandler } = useContext(AppContext);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -39,8 +42,17 @@ const SliderView = ({ query, title, onActionHandler }) => {
     }
   };
 
-  const showModalHandler = (id) => {
-    onActionHandler(id);
+  const favoriteHandler = async (id) => {
+    fetch(
+      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json",
+      {
+        method: "POST",
+        body: JSON.stringify(id),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).catch((response) => console.log(response));
   };
 
   return (
@@ -55,7 +67,7 @@ const SliderView = ({ query, title, onActionHandler }) => {
                 poster={mov.Poster}
                 id={mov.imdbID}
                 translate={slideIndex}
-                onModal={showModalHandler}
+                openModalHandler={openModalHandler.bind(null, mov.imdbID)}
               />
             ))}
             {slideIndex !== 0 ? (

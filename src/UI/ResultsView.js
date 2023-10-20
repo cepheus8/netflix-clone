@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import classes from "./ResultsView.module.css";
 import Poster from "../components/Poster";
+import AppContext from "../context/appContext";
 
-const Results = ({ query, onActionHandler }) => {
+const ResultsView = () => {
   const [movieData, setMovieData] = useState([]);
+  const { query, openModalHandler } = useContext(AppContext);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -19,10 +21,6 @@ const Results = ({ query, onActionHandler }) => {
     fetchMovie();
   }, [query]);
 
-  const showModalHandler = (id) => {
-    onActionHandler(id);
-  };
-
   return (
     <div className={classes.resultsList}>
       {movieData.map((mov) => (
@@ -30,11 +28,11 @@ const Results = ({ query, onActionHandler }) => {
           key={mov.imdbID}
           poster={mov.Poster}
           id={mov.imdbID}
-          onModal={showModalHandler}
+          openModalHandler={openModalHandler.bind(null, mov.imdbID)}
         />
       ))}
     </div>
   );
 };
 
-export default Results;
+export default ResultsView;

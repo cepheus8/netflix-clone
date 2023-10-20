@@ -1,81 +1,33 @@
 import "./index";
 import Header from "./UI/Header";
 import Footer from "./UI/Footer";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import ResultsView from "./UI/ResultsView";
 import SliderView from "./UI/SliderView";
 import MovieModal from "./UI/MovieModal";
 import Backdrop from "./UI/Backdrop";
+import AppContext from "./context/appContext";
 
 function App() {
-  const [isSearching, setIsSearching] = useState(false);
-  const [query, setQuery] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [movieID, setmovieID] = useState();
-  const [moviesSlider, setMoviesSlider] = useState([]);
-
-  useEffect(() => {
-    let moviesArray = [];
-    fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/HomeSection.json"
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        for (const key in data) {
-          moviesArray.push({ id: key, ...data[key] });
-        }
-        setMoviesSlider(moviesArray);
-      });
-
-    if (showModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-    }
-  }, [showModal]);
-
-  const mainViewHandler = (input) => {
-    setIsSearching(true);
-    setQuery(input);
-  };
-
-  const ModalHandler = (id) => {
-    setShowModal(true);
-    setmovieID(id);
-  };
-  const closeModalHandler = () => {
-    setShowModal(false);
-  };
-
-  const returnHomeHandler = () => {
-    setIsSearching(false);
-  };
+  const { showModal, isSearching, moviesHomeList } = useContext(AppContext);
 
   return (
     <>
-      <Header
-        mainViewHandler={mainViewHandler}
-        returnHomeHandler={returnHomeHandler}
-      />
+      <Header />
       {showModal && (
         <>
-          <Backdrop closeModalHandler={closeModalHandler} />
-          <MovieModal id={movieID} closeModalHandler={closeModalHandler} />
+          <Backdrop />
+          <MovieModal />
         </>
       )}
       {isSearching ? (
         <div>
-          <ResultsView onActionHandler={ModalHandler} query={query} />
+          <ResultsView />
         </div>
       ) : (
         <div>
-          {moviesSlider.map((mov) => (
-            <SliderView
-              onActionHandler={ModalHandler}
-              title={mov.title}
-              query={mov.Query}
-              key={mov.id}
-            />
+          {moviesHomeList.map((mov) => (
+            <SliderView title={mov.title} query={mov.Query} key={mov.id} />
           ))}
         </div>
       )}

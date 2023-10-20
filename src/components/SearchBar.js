@@ -1,14 +1,17 @@
-import { forwardRef } from "react";
+import { forwardRef, useContext } from "react";
 import classes from "./SearchBar.module.css";
+import AppContext from "../context/appContext";
 
 const SearchBar = forwardRef((props, ref) => {
+  const { resultsViewHandler } = useContext(AppContext);
+
   const blurHandler = () => {
-    props.onBlur();
+    props.onBlurHandler();
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onResults(ref.current.value);
+    resultsViewHandler(ref.current.value);
   };
 
   return (

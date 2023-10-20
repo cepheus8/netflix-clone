@@ -4,7 +4,7 @@ import classes from "./Header.module.css";
 import SearchBar from "../components/SearchBar";
 import { useState, useEffect, useRef } from "react";
 
-const Header = (props) => {
+const Header = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef();
@@ -15,39 +15,27 @@ const Header = (props) => {
     }
   }, [isFocus]);
 
-  const addSearchHandler = () => {
+  const startSearchHandler = () => {
     setShowSearchBar(true);
     setIsFocus(true);
   };
 
-  const removeSearchHandler = () => {
+  const exitSearchHandler = () => {
     setIsFocus(false);
     setShowSearchBar(false);
   };
 
-  const searchResultsHandler = (input) => {
-    props.mainViewHandler(input);
-  };
-
-  const returnHandler = () => {
-    props.returnHomeHandler();
-  };
-
   return (
     <header className={classes.header}>
-      <Navigation onReturn={returnHandler} />
+      <Navigation />
       {showSearchBar && isFocus && (
         <div className={classes.searchBar}>
-          <SearchBar
-            ref={inputRef}
-            onBlur={removeSearchHandler}
-            onResults={searchResultsHandler}
-          />
+          <SearchBar ref={inputRef} onBlurHandler={exitSearchHandler} />
         </div>
       )}
       <div>
         <Icons
-          onSearch={addSearchHandler}
+          onSearch={startSearchHandler}
           hideSearchIcon={showSearchBar}
           isFocused={isFocus}
         />
