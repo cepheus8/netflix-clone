@@ -1,25 +1,16 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import classes from "./ResultsView.module.css";
 import Poster from "../components/Poster";
 import AppContext from "../context/appContext";
+import useMoviesData from "../hooks/use-movies";
 
 const ResultsView = () => {
-  const [movieData, setMovieData] = useState([]);
   const { query, openModalHandler } = useContext(AppContext);
+  const { movieData, fetchMovies } = useMoviesData();
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      const response = await fetch(
-        `http://www.omdbapi.com/?s=${query}&apikey=fd47b721`
-      );
-
-      const res = await response.json();
-      console.log(res);
-
-      setMovieData(res.Search);
-    };
-    fetchMovie();
-  }, [query]);
+    fetchMovies("s", query);
+  }, [fetchMovies, query]);
 
   return (
     <div className={classes.resultsList}>

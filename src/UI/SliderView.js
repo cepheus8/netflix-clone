@@ -3,27 +3,17 @@ import { useEffect, useState, useContext } from "react";
 import classes from "./SliderView.module.css";
 import { VscChevronRight, VscChevronLeft } from "react-icons/vsc";
 import AppContext from "../context/appContext";
+import useMoviesData from "../hooks/use-movies";
 
 const SliderView = ({ query, title }) => {
-  const [movieData, setMovieData] = useState([]);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
 
+  const { movieData, isLoaded, fetchMovies } = useMoviesData();
   const { openModalHandler } = useContext(AppContext);
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      const response = await fetch(
-        `http://www.omdbapi.com/?s=${query}&apikey=fd47b721`
-      );
-
-      const res = await response.json();
-
-      setMovieData(res.Search);
-      setIsLoaded(true);
-    };
-    fetchMovie();
-  }, [query]);
+    fetchMovies("s", query);
+  }, [fetchMovies, query]);
 
   const slideHandler = (direction) => {
     const sliderLength = movieData.length - 8; // how to not hardcode
