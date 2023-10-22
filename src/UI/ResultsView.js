@@ -5,12 +5,16 @@ import AppContext from "../context/appContext";
 import useMoviesData from "../hooks/use-movies";
 
 const ResultsView = () => {
-  const { query, openModalHandler } = useContext(AppContext);
+  const { query, openModalHandler, favoriteState } = useContext(AppContext);
   const { movieData, fetchMovies, addToFavoriteHandler } = useMoviesData();
 
   useEffect(() => {
-    fetchMovies("s", query);
-  }, [fetchMovies, query]);
+    if (favoriteState.isFavorite) {
+      fetchMovies("", "", favoriteState.idArray);
+    } else {
+      fetchMovies("s", query);
+    }
+  }, [fetchMovies, query, favoriteState]);
 
   const favoriteHandler = async (id) => {
     addToFavoriteHandler(id);

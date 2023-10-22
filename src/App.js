@@ -9,7 +9,8 @@ import Backdrop from "./UI/Backdrop";
 import AppContext from "./context/appContext";
 
 function App() {
-  const { showModal, isSearching, moviesHomeList } = useContext(AppContext);
+  const { showModal, isSearching, moviesHomeList, favoriteState } =
+    useContext(AppContext);
 
   return (
     <>
@@ -20,7 +21,7 @@ function App() {
           <MovieModal />
         </>
       )}
-      {isSearching ? (
+      {isSearching || favoriteState.isFavorite ? (
         <div>
           <ResultsView />
         </div>

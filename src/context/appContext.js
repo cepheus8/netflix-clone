@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useReducer } from "react";
 
 const AppContext = createContext({
   showModal: false,
@@ -10,7 +10,23 @@ const AppContext = createContext({
   homeViewHandler: () => {},
   resultsViewHandler: (input) => {},
   moviesHomeList: [],
+  showFavoritesHandler: () => {},
 });
+
+const reducer = (state, action) => {
+  if (action.type === "showFavorites") {
+    return {
+      isFavorite: true,
+      idArray: action.favArray,
+    };
+  }
+  if (action.type === "hideFavorites") {
+    return {
+      isFavorite: false,
+      idArray: [],
+    };
+  }
+};
 
 export const AppContextProvider = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +34,10 @@ export const AppContextProvider = (props) => {
   const [movieID, setmovieID] = useState();
   const [query, setQuery] = useState("");
   const [moviesHomeList, setMoviesHomeList] = useState([]);
+  const [favoriteState, dispatch] = useReducer(reducer, {
+    isFavorite: false,
+    idArray: [],
+  });
 
   useEffect(() => {
     let moviesArray = [];
@@ -50,22 +70,41 @@ export const AppContextProvider = (props) => {
   const resultsViewHandler = (input) => {
     setIsSearching(true);
     setQuery(input);
+    dispatch({ type: "hideFavorites" });
   };
 
   const homeViewHandler = () => {
     setIsSearching(false);
+    dispatch({ type: "hideFavorites" });
+  };
+
+  const showFavoritesHandler = async () => {
+    let moviesID = [];
+    fetch(
+      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json"
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        for (const key in data) {
+          moviesID.push(data[key]);
+        }
+        console.log(moviesID);
+        dispatch({ type: "showFavorites", favArray: moviesID });
+      });
   };
 
   const context = {
-    showModal: showModal,
-    isSearching: isSearching,
+    showModal,
+    isSearching,
     id: movieID,
-    query: query,
-    openModalHandler: openModalHandler,
-    closeModalHandler: closeModalHandler,
-    homeViewHandler: homeViewHandler,
-    resultsViewHandler: resultsViewHandler,
-    moviesHomeList: moviesHomeList,
+    query,
+    openModalHandler,
+    closeModalHandler,
+    homeViewHandler,
+    resultsViewHandler,
+    moviesHomeList,
+    showFavoritesHandler,
+    favoriteState,
   };
 
   return (

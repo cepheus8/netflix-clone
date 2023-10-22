@@ -3,7 +3,7 @@ import { useContext } from "react";
 import AppContext from "../context/appContext";
 
 const Navigation = () => {
-  const { homeViewHandler, favoriteHandler } = useContext(AppContext);
+  const { homeViewHandler, showFavoritesHandler } = useContext(AppContext);
 
   return (
     <nav className={classes.navigation}>
@@ -12,7 +12,7 @@ const Navigation = () => {
       </p>
       <ul className={classes.list}>
         <li onClick={homeViewHandler}>Strona główna</li>
-        <li onClick={favoriteHandler}>Moja lista</li>
+        <li onClick={showFavoritesHandler}>Moja lista</li>
       </ul>
     </nav>
   );
