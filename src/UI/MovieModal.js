@@ -1,28 +1,25 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import classes from "./MovieModal.module.css";
 import { VscClose } from "react-icons/vsc";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import AppContext from "../context/appContext";
+import useMoviesData from "../hooks/use-movies";
 
 const MovieModal = () => {
-  const [movieData, setMovieData] = useState();
   const { closeModalHandler, id } = useContext(AppContext);
 
-  
+  const { movieData, isLoaded, fetchMovies, addToFavoriteHandler } =
+    useMoviesData();
+
   useEffect(() => {
-    const fetchMovie = async () => {
-      const response = await fetch(
-        `http://www.omdbapi.com/?i=${id}&apikey=fd47b721`
-      );
+    fetchMovies("i", id);
+  }, [fetchMovies, id]);
 
-      const res = await response.json();
+  const favoriteHandler = async () => {
+    addToFavoriteHandler(id);
+  };
 
-      setMovieData(res);
-    };
-    fetchMovie();
-  }, [id, movieData]);
-
-  if (!movieData) {
+  if (!isLoaded) {
     return (
       <dialog className={classes.modal}>
         <p>Loading...</p>
@@ -38,7 +35,10 @@ const MovieModal = () => {
       ></div>
       <div className={classes.descriptionContainer}>
         <div className={classes.title}>
-          <AiOutlinePlusCircle className={classes.iconAdd} />
+          <AiOutlinePlusCircle
+            className={classes.iconAdd}
+            onClick={favoriteHandler.bind(null, id)}
+          />
           <h3 className={classes.title}>{movieData.Title}</h3>
         </div>
         <div>

@@ -8,7 +8,8 @@ import useMoviesData from "../hooks/use-movies";
 const SliderView = ({ query, title }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const { movieData, isLoaded, fetchMovies } = useMoviesData();
+  const { movieData, isLoaded, fetchMovies, addToFavoriteHandler } =
+    useMoviesData();
   const { openModalHandler } = useContext(AppContext);
 
   useEffect(() => {
@@ -33,16 +34,7 @@ const SliderView = ({ query, title }) => {
   };
 
   const favoriteHandler = async (id) => {
-    fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json",
-      {
-        method: "POST",
-        body: JSON.stringify(id),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).catch((response) => console.log(response));
+    addToFavoriteHandler(id);
   };
 
   return (
@@ -58,6 +50,7 @@ const SliderView = ({ query, title }) => {
                 id={mov.imdbID}
                 translate={slideIndex}
                 openModalHandler={openModalHandler.bind(null, mov.imdbID)}
+                onFavorite={favoriteHandler}
               />
             ))}
             {slideIndex !== 0 ? (

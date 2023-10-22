@@ -6,11 +6,15 @@ import useMoviesData from "../hooks/use-movies";
 
 const ResultsView = () => {
   const { query, openModalHandler } = useContext(AppContext);
-  const { movieData, fetchMovies } = useMoviesData();
+  const { movieData, fetchMovies, addToFavoriteHandler } = useMoviesData();
 
   useEffect(() => {
     fetchMovies("s", query);
   }, [fetchMovies, query]);
+
+  const favoriteHandler = async (id) => {
+    addToFavoriteHandler(id);
+  };
 
   return (
     <div className={classes.resultsList}>
@@ -20,6 +24,7 @@ const ResultsView = () => {
           poster={mov.Poster}
           id={mov.imdbID}
           openModalHandler={openModalHandler.bind(null, mov.imdbID)}
+          onFavorite={favoriteHandler}
         />
       ))}
     </div>
