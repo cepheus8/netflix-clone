@@ -13,17 +13,28 @@ const AppContext = createContext({
   showFavoritesHandler: () => {},
 });
 
+const initialState = {
+  isFavorite: false,
+  idArray: [],
+};
+
 const reducer = (state, action) => {
+  if (action.type === "initFavorites") {
+    return {
+      isFavorite: false,
+      idArray: action.favArray,
+    };
+  }
   if (action.type === "showFavorites") {
     return {
       isFavorite: true,
-      idArray: action.favArray,
+      idArray: state.idArray,
     };
   }
   if (action.type === "hideFavorites") {
     return {
       isFavorite: false,
-      idArray: [],
+      idArray: state.idArray,
     };
   }
 };
@@ -34,10 +45,7 @@ export const AppContextProvider = (props) => {
   const [movieID, setmovieID] = useState();
   const [query, setQuery] = useState("");
   const [moviesHomeList, setMoviesHomeList] = useState([]);
-  const [favoriteState, dispatch] = useReducer(reducer, {
-    isFavorite: false,
-    idArray: [],
-  });
+  const [favoriteState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     let moviesArray = [];
@@ -47,7 +55,10 @@ export const AppContextProvider = (props) => {
       .then((data) => data.json())
       .then((data) => {
         for (const key in data) {
-          moviesArray.push({ id: key, ...data[key] });
+          moviesArray.push({
+            id: key,
+            ...data[key],
+          });
         }
         setMoviesHomeList(moviesArray);
       });
@@ -57,6 +68,18 @@ export const AppContextProvider = (props) => {
     } else {
       document.body.style.overflow = "visible";
     }
+
+    let moviesID = [];
+    fetch(
+      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json"
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        for (const key in data) {
+          moviesID.push(data[key]);
+        }
+        dispatch({ type: "initFavorites", favArray: moviesID });
+      });
   }, [showModal]);
 
   const openModalHandler = (id) => {
@@ -68,9 +91,9 @@ export const AppContextProvider = (props) => {
   };
 
   const resultsViewHandler = (input) => {
+    dispatch({ type: "hideFavorites" });
     setIsSearching(true);
     setQuery(input);
-    dispatch({ type: "hideFavorites" });
   };
 
   const homeViewHandler = () => {
@@ -79,18 +102,7 @@ export const AppContextProvider = (props) => {
   };
 
   const showFavoritesHandler = async () => {
-    let moviesID = [];
-    fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json"
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        for (const key in data) {
-          moviesID.push(data[key]);
-        }
-        console.log(moviesID);
-        dispatch({ type: "showFavorites", favArray: moviesID });
-      });
+    dispatch({ type: "showFavorites" });
   };
 
   const context = {

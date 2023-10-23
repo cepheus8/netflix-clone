@@ -1,11 +1,14 @@
 import classes from "./Poster.module.css";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle, AiOutlineCheckCircle } from "react-icons/ai";
 
-const Poster = ({ poster, translate, id, openModalHandler, onFavorite }) => {
-  const addToFavoriteHandler = () => {
-    onFavorite(id);
-  };
-
+const Poster = ({
+  poster,
+  translate,
+  id,
+  openModalHandler,
+  onFavorite,
+  addFavoriteIcon,
+}) => {
   return (
     <div
       className={classes.container}
@@ -13,10 +16,12 @@ const Poster = ({ poster, translate, id, openModalHandler, onFavorite }) => {
       onClick={openModalHandler}
     >
       <img src={poster} alt="movie poster" width="145px" />
-      <AiOutlinePlusCircle
-        className={classes.icon}
-        onClick={addToFavoriteHandler}
-      />
+
+      {addFavoriteIcon && (
+        <button className={classes.button}>
+          <AiOutlineCheckCircle />
+        </button>
+      )}
     </div>
   );
 };

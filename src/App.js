@@ -21,11 +21,17 @@ function App() {
           <MovieModal />
         </>
       )}
-      {isSearching || favoriteState.isFavorite ? (
+      {isSearching && (
         <div>
           <ResultsView />
         </div>
-      ) : (
+      )}
+      {favoriteState.isFavorite && (
+        <div>
+          <ResultsView />
+        </div>
+      )}
+      {!isSearching && !favoriteState.isFavorite && (
         <div>
           {moviesHomeList.map((mov) => (
             <SliderView title={mov.title} query={mov.Query} key={mov.id} />

@@ -27,7 +27,6 @@
   text-transform: uppercase;
   text-align: center;
   font-size: 30px;
-  grid-column-start: span 2;
 }
 
 .descriptionContainer {
@@ -40,27 +39,36 @@
   position: relative;
 }
 
-.button {
+.buttonClose {
   position: absolute;
   right: 0;
   top: 0;
   border: none;
   padding: 8px;
   background-color: #fff;
-}
-
-.iconClose {
   font-size: 20px;
   color: #000000;
+  cursor: pointer;
 }
 
-.iconAdd {
-  color: #fff;
-  font-size: 30px;
-}
-
-.title {
-  display: flex;
+.titleContainer {
+  grid-column-start: span 2;
   align-items: center;
   gap: 10px;
+  display: flex;
+}
+
+.buttonFavorite {
+  height: 30px;
+  color: #fff;
+  z-index: 1;
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.buttonFavorite:hover {
+  font-size: 35px;
 }

@@ -10,9 +10,9 @@ const ResultsView = () => {
 
   useEffect(() => {
     if (favoriteState.isFavorite) {
-      fetchMovies("", "", favoriteState.idArray);
+      fetchMovies("", "", favoriteState.idArray, true);
     } else {
-      fetchMovies("s", query);
+      fetchMovies("s", query, null, false);
     }
   }, [fetchMovies, query, favoriteState]);
 
@@ -29,6 +29,7 @@ const ResultsView = () => {
           id={mov.imdbID}
           openModalHandler={openModalHandler.bind(null, mov.imdbID)}
           onFavorite={favoriteHandler}
+          addFavoriteIcon={favoriteState.isFavorite}
         />
       ))}
     </div>
