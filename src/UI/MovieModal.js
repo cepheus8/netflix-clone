@@ -35,11 +35,15 @@ const MovieModal = () => {
     );
   }
 
+  const moviePoster = !(movieData.Poster === "N/A")
+    ? movieData.Poster
+    : "./fallback.jpg";
+
   return (
     <dialog className={classes.modal}>
       <div
         className={classes.imageContainer}
-        style={{ backgroundImage: `url(${movieData.Poster})` }}
+        style={{ backgroundImage: `url(${moviePoster})` }}
       ></div>
       <div className={classes.descriptionContainer}>
         <div className={classes.titleContainer}>

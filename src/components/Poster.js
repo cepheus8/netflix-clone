@@ -13,13 +13,15 @@ const Poster = ({ poster, translate, id, openModalHandler }) => {
     removeFavoriteHandler(id);
   };
 
+  const moviePoster = !(poster === "N/A") ? poster : "./fallback.jpg";
+
   return (
     <div
       className={classes.container}
       style={{ transform: `translate(-${translate * 100}%)` }}
       onClick={openModalHandler}
     >
-      <img src={poster} alt="movie poster" width="145px" />
+      <img src={moviePoster} alt="movie poster" width="145px" />
 
       {favoritesView && (
         <button className={classes.button} onClick={favoriteHandler}>
