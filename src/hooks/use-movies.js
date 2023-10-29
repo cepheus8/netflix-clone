@@ -5,71 +5,47 @@ const useMoviesData = () => {
   const [movieData, setMovieData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const fetchMovies = useCallback(
-    async (parameter, query, favoritesArray, isFavorite) => {
-      if (isFavorite) {
-        let favoritesMovies = [];
-        for await (const favorite of favoritesArray) {
-          const response = await fetch(
-            `http://www.omdbapi.com/?i=${favorite}&apikey=fd47b721`
-          );
-          const data = await response.json();
-          favoritesMovies.push(data);
-        }
-        console.log(favoritesMovies);
-        setMovieData(favoritesMovies);
-      }
+  const fetchMovies = useCallback(async (query, isModal, idArray) => {
+    if (isModal && idArray) {
+      const response = await fetch(
+        `http://www.omdbapi.com/?i=${query}&apikey=fd47b721`
+      );
+      const data = await response.json();
+      const isfavoriteMovie = idArray.includes(query);
+      const validData = !isfavoriteMovie ? data : { ...data, isFavorite: true };
 
-      if (!favoritesArray) {
+      setMovieData(validData);
+      console.log(validData);
+      setIsLoaded(true);
+    } else if (!isModal && idArray) {
+      let favoritesMovies = [];
+      for await (const favoriteMovie of idArray) {
         const response = await fetch(
-          `http://www.omdbapi.com/?${parameter}=${query}&apikey=fd47b721`
+          `http://www.omdbapi.com/?i=${favoriteMovie}&apikey=fd47b721`
         );
-
         const data = await response.json();
-        // if (parameter === "s") {
-        setMovieData(data.Search);
-        console.log(data);
-        setIsLoaded(true);
+        favoritesMovies.push(data);
       }
-      if (favoritesArray && !isFavorite) {
-        const response = await fetch(
-          `http://www.omdbapi.com/?${parameter}=${query}&apikey=fd47b721`
-        );
-        // if (parameter === "i") {
-        const data = await response.json();
-        const isfavoriteMovie = favoritesArray.includes(query);
-        const validData = !isfavoriteMovie
-          ? data
-          : { ...data, isFavorite: true };
+      console.log(favoritesMovies);
+      setMovieData(favoritesMovies);
+      setIsLoaded(true);
+    } else {
+      const response = await fetch(
+        `http://www.omdbapi.com/?s=${query}&apikey=fd47b721`
+      );
 
-        setMovieData(validData);
-        console.log(validData);
-        setIsLoaded(true);
-      }
-    },
-    []
-  );
+      const data = await response.json();
 
-  const addToFavoriteHandler = async (id) => {
-    const response = await fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json",
-      {
-        method: "POST",
-        body: JSON.stringify(id),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    console.log(data);
-  };
+      setMovieData(data.Search);
+      console.log(data);
+      setIsLoaded(true);
+    }
+  }, []);
 
   return {
     movieData,
     isLoaded,
     fetchMovies,
-    addToFavoriteHandler,
   };
 };
 

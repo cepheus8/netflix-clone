@@ -4,19 +4,27 @@ import { VscClose } from "react-icons/vsc";
 import { AiOutlinePlusCircle, AiOutlineCheckCircle } from "react-icons/ai";
 import AppContext from "../context/appContext";
 import useMoviesData from "../hooks/use-movies";
+import DataContext from "../context/dataContext";
 
 const MovieModal = () => {
-  const { closeModalHandler, id, favoriteState } = useContext(AppContext);
+  const { closeModalHandler, id } = useContext(AppContext);
 
-  const { movieData, isLoaded, fetchMovies, addToFavoriteHandler } =
-    useMoviesData();
+  const { addToFavoriteHandler, removeFavoriteHandler, idArray } =
+    useContext(DataContext);
+
+  const { movieData, isLoaded, fetchMovies } = useMoviesData();
 
   useEffect(() => {
-    fetchMovies("i", id, favoriteState.idArray, false);
-  }, [fetchMovies, id, favoriteState.idArray]);
+    fetchMovies(id, true, idArray);
+  }, [fetchMovies, id, idArray]);
 
-  const favoriteHandler = () => {
-    addToFavoriteHandler(id);
+  const favoriteHandler = (event) => {
+    if (movieData.isFavorite) {
+      removeFavoriteHandler(id);
+      movieData.isFavorite = false;
+    } else {
+      addToFavoriteHandler(id);
+    }
   };
 
   if (!isLoaded) {

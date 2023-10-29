@@ -3,22 +3,21 @@ import classes from "./ResultsView.module.css";
 import Poster from "../components/Poster";
 import AppContext from "../context/appContext";
 import useMoviesData from "../hooks/use-movies";
+import DataContext from "../context/dataContext";
 
 const ResultsView = () => {
-  const { query, openModalHandler, favoriteState } = useContext(AppContext);
-  const { movieData, fetchMovies, addToFavoriteHandler } = useMoviesData();
+  const { query, openModalHandler, favoritesView } = useContext(AppContext);
+  const { idArray } = useContext(DataContext);
+
+  const { movieData, fetchMovies } = useMoviesData();
 
   useEffect(() => {
-    if (favoriteState.isFavorite) {
-      fetchMovies("", "", favoriteState.idArray, true);
+    if (favoritesView) {
+      fetchMovies(query, false, idArray);
     } else {
-      fetchMovies("s", query, null, false);
+      fetchMovies(query, false, null);
     }
-  }, [fetchMovies, query, favoriteState]);
-
-  const favoriteHandler = async (id) => {
-    addToFavoriteHandler(id);
-  };
+  }, [fetchMovies, query, favoritesView, idArray]);
 
   return (
     <div className={classes.resultsList}>
@@ -28,8 +27,6 @@ const ResultsView = () => {
           poster={mov.Poster}
           id={mov.imdbID}
           openModalHandler={openModalHandler.bind(null, mov.imdbID)}
-          onFavorite={favoriteHandler}
-          addFavoriteIcon={favoriteState.isFavorite}
         />
       ))}
     </div>

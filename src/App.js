@@ -7,37 +7,41 @@ import SliderView from "./UI/SliderView";
 import MovieModal from "./UI/MovieModal";
 import Backdrop from "./UI/Backdrop";
 import AppContext from "./context/appContext";
+import DataContext from "./context/dataContext";
 
 function App() {
-  const { showModal, isSearching, moviesHomeList, favoriteState } =
+  const { showModal, mainView, searchView, favoritesView } =
     useContext(AppContext);
+  const { moviesHomeList } = useContext(DataContext);
 
   return (
     <>
       <Header />
-      {showModal && (
-        <>
-          <Backdrop />
-          <MovieModal />
-        </>
-      )}
-      {isSearching && (
-        <div>
-          <ResultsView />
-        </div>
-      )}
-      {favoriteState.isFavorite && (
-        <div>
-          <ResultsView />
-        </div>
-      )}
-      {!isSearching && !favoriteState.isFavorite && (
-        <div>
-          {moviesHomeList.map((mov) => (
-            <SliderView title={mov.title} query={mov.Query} key={mov.id} />
-          ))}
-        </div>
-      )}
+      <main>
+        {showModal && (
+          <>
+            <Backdrop />
+            <MovieModal />
+          </>
+        )}
+        {searchView && (
+          <div>
+            <ResultsView />
+          </div>
+        )}
+        {favoritesView && (
+          <div>
+            <ResultsView />
+          </div>
+        )}
+        {mainView && (
+          <div>
+            {moviesHomeList.map((mov) => (
+              <SliderView title={mov.title} query={mov.Query} key={mov.id} />
+            ))}
+          </div>
+        )}
+      </main>
       <Footer />
     </>
   );

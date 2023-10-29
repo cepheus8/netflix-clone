@@ -1,14 +1,18 @@
 import classes from "./Poster.module.css";
-import { AiOutlinePlusCircle, AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { useContext } from "react";
+import AppContext from "../context/appContext";
+import DataContext from "../context/dataContext";
 
-const Poster = ({
-  poster,
-  translate,
-  id,
-  openModalHandler,
-  onFavorite,
-  addFavoriteIcon,
-}) => {
+const Poster = ({ poster, translate, id, openModalHandler }) => {
+  const { favoritesView } = useContext(AppContext);
+  const { removeFavoriteHandler } = useContext(DataContext);
+
+  const favoriteHandler = (event) => {
+    event.stopPropagation();
+    removeFavoriteHandler(id);
+  };
+
   return (
     <div
       className={classes.container}
@@ -17,8 +21,8 @@ const Poster = ({
     >
       <img src={poster} alt="movie poster" width="145px" />
 
-      {addFavoriteIcon && (
-        <button className={classes.button}>
+      {favoritesView && (
+        <button className={classes.button} onClick={favoriteHandler}>
           <AiOutlineCheckCircle />
         </button>
       )}

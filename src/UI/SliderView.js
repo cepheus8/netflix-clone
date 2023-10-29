@@ -13,7 +13,7 @@ const SliderView = ({ query, title }) => {
   const { openModalHandler } = useContext(AppContext);
 
   useEffect(() => {
-    fetchMovies("s", query);
+    fetchMovies(query, false, null);
   }, [fetchMovies, query]);
 
   const slideHandler = (direction) => {

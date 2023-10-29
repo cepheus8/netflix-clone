@@ -1,122 +1,93 @@
-import { createContext, useState, useEffect, useReducer } from "react";
+import { createContext, useState, useReducer } from "react";
+
+const initialView = {
+  mainView: true,
+  searchView: false,
+  favoritesView: false,
+};
 
 const AppContext = createContext({
   showModal: false,
-  isSearching: false,
   id: "",
   query: "",
   openModalHandler: (id) => {},
   closeModalHandler: () => {},
   homeViewHandler: () => {},
   resultsViewHandler: (input) => {},
-  moviesHomeList: [],
   showFavoritesHandler: () => {},
+
+  mainView: initialView.mainView,
+  searchView: initialView.searchView,
+  favoritesView: initialView.searchView,
 });
 
-const initialState = {
-  isFavorite: false,
-  idArray: [],
-};
+const viewReducer = (state, action) => {
+  if (action.type === "sliderView") {
+    return {
+      mainView: true,
+      searchView: false,
+      favoritesView: false,
+    };
+  }
+  if (action.type === "resultsView") {
+    return {
+      mainView: false,
+      searchView: true,
+      favoritesView: false,
+    };
+  }
 
-const reducer = (state, action) => {
-  if (action.type === "initFavorites") {
+  if (action.type === "favoriteView") {
     return {
-      isFavorite: false,
-      idArray: action.favArray,
-    };
-  }
-  if (action.type === "showFavorites") {
-    return {
-      isFavorite: true,
-      idArray: state.idArray,
-    };
-  }
-  if (action.type === "hideFavorites") {
-    return {
-      isFavorite: false,
-      idArray: state.idArray,
+      mainView: false,
+      searchView: false,
+      favoritesView: true,
     };
   }
 };
 
 export const AppContextProvider = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
   const [movieID, setmovieID] = useState();
   const [query, setQuery] = useState("");
-  const [moviesHomeList, setMoviesHomeList] = useState([]);
-  const [favoriteState, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    let moviesArray = [];
-    fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/HomeSection.json"
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        for (const key in data) {
-          moviesArray.push({
-            id: key,
-            ...data[key],
-          });
-        }
-        setMoviesHomeList(moviesArray);
-      });
-
-    if (showModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-    }
-
-    let moviesID = [];
-    fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json"
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        for (const key in data) {
-          moviesID.push(data[key]);
-        }
-        dispatch({ type: "initFavorites", favArray: moviesID });
-      });
-  }, [showModal]);
+  const [viewState, dispatchViewState] = useReducer(viewReducer, initialView);
 
   const openModalHandler = (id) => {
     setShowModal(true);
+    document.body.style.overflow = "hidden";
     setmovieID(id);
   };
   const closeModalHandler = () => {
     setShowModal(false);
+    document.body.style.overflow = "visible";
   };
 
   const resultsViewHandler = (input) => {
-    dispatch({ type: "hideFavorites" });
-    setIsSearching(true);
+    dispatchViewState({ type: "resultsView" });
     setQuery(input);
   };
 
   const homeViewHandler = () => {
-    setIsSearching(false);
-    dispatch({ type: "hideFavorites" });
+    dispatchViewState({ type: "sliderView" });
   };
 
-  const showFavoritesHandler = async () => {
-    dispatch({ type: "showFavorites" });
+  const showFavoritesHandler = () => {
+    dispatchViewState({ type: "favoriteView" });
   };
 
   const context = {
     showModal,
-    isSearching,
     id: movieID,
     query,
     openModalHandler,
     closeModalHandler,
     homeViewHandler,
     resultsViewHandler,
-    moviesHomeList,
     showFavoritesHandler,
-    favoriteState,
+    mainView: viewState.mainView,
+    searchView: viewState.searchView,
+    favoritesView: viewState.favoritesView,
   };
 
   return (
