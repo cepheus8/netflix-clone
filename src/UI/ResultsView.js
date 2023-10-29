@@ -19,6 +19,14 @@ const ResultsView = () => {
     }
   }, [fetchMovies, query, favoritesView, idArray]);
 
+  if (favoritesView && idArray.length === 0) {
+    return (
+      <p className={classes.fallback}>
+        Nie dodano jeszcze żadnych tytułów do Twojej listy
+      </p>
+    );
+  }
+
   return (
     <div className={classes.resultsList}>
       {movieData.map((mov) => (
