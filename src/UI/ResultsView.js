@@ -27,6 +27,14 @@ const ResultsView = () => {
     );
   }
 
+  if (!movieData) {
+    return (
+      <p className={classes.fallback}>
+        Brak wyników wyszukiwania. Spróbuj użyć innych słów kluczowych
+      </p>
+    );
+  }
+
   return (
     <div className={classes.resultsList}>
       {movieData.map((mov) => (
