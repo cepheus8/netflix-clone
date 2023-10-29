@@ -8,7 +8,7 @@ const useMoviesData = () => {
   const fetchMovies = useCallback(async (query, isModal, idArray) => {
     if (isModal && idArray) {
       const response = await fetch(
-        `http://www.omdbapi.com/?i=${query}&apikey=fd47b721`
+        `https://www.omdbapi.com/?i=${query}&apikey=fd47b721`
       );
       const data = await response.json();
       const isfavoriteMovie = idArray.includes(query);
@@ -21,7 +21,7 @@ const useMoviesData = () => {
       let favoritesMovies = [];
       for await (const favoriteMovie of idArray) {
         const response = await fetch(
-          `http://www.omdbapi.com/?i=${favoriteMovie}&apikey=fd47b721`
+          `https://www.omdbapi.com/?i=${favoriteMovie}&apikey=fd47b721`
         );
         const data = await response.json();
         favoritesMovies.push(data);
@@ -31,7 +31,7 @@ const useMoviesData = () => {
       setIsLoaded(true);
     } else {
       const response = await fetch(
-        `http://www.omdbapi.com/?s=${query}&apikey=fd47b721`
+        `https://www.omdbapi.com/?s=${query}&apikey=fd47b721`
       );
 
       const data = await response.json();
