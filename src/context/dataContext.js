@@ -90,7 +90,6 @@ export const DataContextProvider = (props) => {
     const data = await response.json();
 
     const ref = data.name;
-    console.log(ref);
 
     dispatchFavoriteState({ type: "addFavorite", id: id, ref: ref });
   };

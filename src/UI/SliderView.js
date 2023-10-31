@@ -29,7 +29,6 @@ const SliderView = ({ query, title }) => {
 
     if (direction === "right" && slideIndex < sliderLength) {
       setSlideIndex((prev) => prev + 1);
-      console.log(slideIndex);
     }
   };
 

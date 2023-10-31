@@ -15,7 +15,6 @@ const useMoviesData = () => {
       const validData = !isfavoriteMovie ? data : { ...data, isFavorite: true };
 
       setMovieData(validData);
-      console.log(validData);
       setIsLoaded(true);
     } else if (!isModal && idArray) {
       let favoritesMovies = [];
@@ -26,7 +25,6 @@ const useMoviesData = () => {
         const data = await response.json();
         favoritesMovies.push(data);
       }
-      console.log(favoritesMovies);
       setMovieData(favoritesMovies);
       setIsLoaded(true);
     } else {
@@ -39,7 +37,7 @@ const useMoviesData = () => {
           `https://www.omdbapi.com/?s=${query}&page=${i}&apikey=fd47b721`
         );
         data = await response.json();
-        console.log(data);
+
         if (data.Search === undefined) {
           break;
         }
@@ -47,7 +45,6 @@ const useMoviesData = () => {
       }
 
       setMovieData(loopedMovies);
-      console.log(loopedMovies);
       setIsLoaded(true);
     }
   }, []);
