@@ -30,14 +30,24 @@ const useMoviesData = () => {
       setMovieData(favoritesMovies);
       setIsLoaded(true);
     } else {
-      const response = await fetch(
-        `https://www.omdbapi.com/?s=${query}&apikey=fd47b721`
-      );
+      let i = 0;
+      let data = [];
+      let loopedMovies = [];
+      while (i < 4) {
+        i++;
+        const response = await fetch(
+          `https://www.omdbapi.com/?s=${query}&page=${i}&apikey=fd47b721`
+        );
+        data = await response.json();
+        console.log(data);
+        if (data.Search === undefined) {
+          break;
+        }
+        loopedMovies.push(...data.Search);
+      }
 
-      const data = await response.json();
-
-      setMovieData(data.Search);
-      console.log(data);
+      setMovieData(loopedMovies);
+      console.log(loopedMovies);
       setIsLoaded(true);
     }
   }, []);
