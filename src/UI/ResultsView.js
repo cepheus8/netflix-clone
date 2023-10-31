@@ -9,7 +9,7 @@ const ResultsView = () => {
   const { query, openModalHandler, favoritesView } = useContext(AppContext);
   const { idArray } = useContext(DataContext);
 
-  const { movieData, fetchMovies } = useMoviesData();
+  const { movieData, fetchMovies, isLoaded } = useMoviesData();
 
   useEffect(() => {
     if (favoritesView) {
@@ -18,6 +18,10 @@ const ResultsView = () => {
       fetchMovies(query, false, null);
     }
   }, [fetchMovies, query, favoritesView, idArray]);
+
+  if (!isLoaded) {
+    return <p className={classes.loading}>Loading...</p>;
+  }
 
   if (favoritesView && idArray.length === 0) {
     return (

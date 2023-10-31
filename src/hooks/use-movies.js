@@ -6,6 +6,7 @@ const useMoviesData = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchMovies = useCallback(async (query, isModal, idArray) => {
+    setIsLoaded(false);
     if (isModal && idArray) {
       const response = await fetch(
         `https://www.omdbapi.com/?i=${query}&apikey=fd47b721`
