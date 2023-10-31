@@ -27,7 +27,7 @@ const ResultsView = () => {
     );
   }
 
-  if (!movieData) {
+  if (movieData.length === 0) {
     return (
       <p className={classes.fallback}>
         Brak wyników wyszukiwania. Spróbuj użyć innych słów kluczowych
