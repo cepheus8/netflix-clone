@@ -24,23 +24,12 @@ function App() {
             <MovieModal />
           </>
         )}
-        {searchView && (
-          <div>
-            <ResultsView />
-          </div>
-        )}
-        {favoritesView && (
-          <div>
-            <ResultsView />
-          </div>
-        )}
-        {mainView && (
-          <div>
-            {moviesHomeList.map((mov) => (
-              <SliderView title={mov.title} query={mov.Query} key={mov.id} />
-            ))}
-          </div>
-        )}
+        {searchView && <ResultsView />}
+        {favoritesView && <ResultsView />}
+        {mainView &&
+          moviesHomeList.map((mov) => (
+            <SliderView title={mov.title} query={mov.Query} key={mov.id} />
+          ))}
       </main>
       <Footer />
     </>
