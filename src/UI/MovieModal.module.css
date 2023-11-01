@@ -36,6 +36,7 @@
   height: 404px;
   gap: 5px;
   position: relative;
+  overflow-y: scroll;
 }
 
 .buttonClose {
@@ -55,6 +56,7 @@
   align-items: center;
   gap: 10px;
   display: flex;
+  margin-top: 7px;
 }
 
 .buttonFavorite {
@@ -70,4 +72,13 @@
 
 .buttonFavorite:hover {
   font-size: 35px;
+}
+
+.descriptionContainer::-webkit-scrollbar {
+  width: 2px;
+  background: #000000;
+}
+
+.descriptionContainer::-webkit-scrollbar-thumb {
+  background: #fff;
 }
