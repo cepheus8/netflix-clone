@@ -3,28 +3,28 @@
 .title {
   color: #fff;
   font-family: "Mulish", sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .posterList {
   display: flex;
   position: relative;
-  gap: 12px;
-  margin-bottom: 60px;
+  gap: 0.75rem;
+  margin-bottom: 3.75rem;
 }
 
 .arrowLeft {
   color: #fff;
-  font-size: 80px;
+  font-size: 5rem;
   position: absolute;
-  left: 0px;
-  top: 75px;
+  left: 0rem;
+  top: 4.688rem;
 }
 
 .arrowRight {
   color: #fff;
-  font-size: 80px;
+  font-size: 5rem;
   position: absolute;
-  right: 0px;
-  top: 75px;
+  right: 0rem;
+  top: 4.688rem;
 }

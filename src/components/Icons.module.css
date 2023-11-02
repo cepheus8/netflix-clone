@@ -1,11 +1,11 @@
 .iconsList li {
   color: #fff;
-  font-size: 30px;
+  font-size: 1.875rem;
   cursor: pointer;
 }
 
 .iconsList {
   display: flex;
   list-style: none;
-  gap: 20px;
+  gap: 1.25rem;
 }

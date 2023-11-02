@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
 
 .input {
-  width: 600px;
-  height: 50px;
-  padding: 10px;
+  width: 37.5rem;
+  height: 3.125rem;
+  padding: 0.625rem;
   border-radius: 0;
   background-color: #000000;
   outline: none;
@@ -13,11 +13,11 @@
 }
 
 .input:focus {
-  border: 2px solid #fff;
+  border: 0.125rem solid #fff;
 }
 @keyframes searchBar {
   0% {
-    transform: translate(120px);
+    transform: translate(7.5rem);
   }
 
   100% {

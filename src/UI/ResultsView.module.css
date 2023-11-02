@@ -1,20 +1,20 @@
 .resultsList {
-  margin-bottom: 60px;
+  margin-bottom: 3.75rem;
   display: grid;
-  gap: 15px 2px;
+  gap: 0.938rem 0.125rem;
   grid-template-columns: repeat(8, 1fr);
   justify-items: center;
 }
 
 .fallback {
   color: #564d4d;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
   margin: auto;
 }
 
 .loading {
   color: #fff;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
 }

@@ -2,16 +2,16 @@
 
 .list {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem;
   list-style: none;
   color: #fff;
   font-family: "Mulish", sans-serif;
-  font-size: 13px;
+  font-size: 0.813rem;
 }
 
 .logo {
   color: #e50914;
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 400;
   cursor: pointer;
 }

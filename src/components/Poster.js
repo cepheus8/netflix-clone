@@ -21,7 +21,7 @@ const Poster = ({ poster, translate, id, openModalHandler }) => {
       style={{ transform: `translate(-${translate * 100}%)` }}
       onClick={openModalHandler}
     >
-      <img src={moviePoster} alt="movie poster" width="145px" />
+      <img src={moviePoster} alt="movie poster" />
 
       {favoritesView && (
         <button className={classes.button} onClick={favoriteHandler}>

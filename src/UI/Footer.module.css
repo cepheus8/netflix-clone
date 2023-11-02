@@ -1,11 +1,11 @@
 .copyright {
   color: #564d4d;
-  font-size: 15px;
+  font-size: 0.938rem;
 }
 
 .footerIcons {
   display: flex;
-  gap: 15px;
+  gap: 0.938rem;
   color: #fff;
-  font-size: 35px;
+  font-size: 2.188rem;
 }
