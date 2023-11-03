@@ -16,3 +16,9 @@ main {
   height: 87.5rem;
   width: 100hv;
 }
+
+.error {
+  color: #e50914;
+  font-size: 1.25rem;
+  text-align: center;
+}

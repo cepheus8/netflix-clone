@@ -9,6 +9,8 @@ const dataContext = createContext({
   addToFavoriteHandler: () => {},
   removeFavoriteHandler: () => {},
   moviesHomeList: [],
+  errorNotification: false,
+  hideNotificationHandler: () => {},
 });
 
 const favoriteReducer = (state, action) => {
@@ -31,10 +33,17 @@ const favoriteReducer = (state, action) => {
       refArray: state.refArray.filter((ref) => ref !== action.ref),
     };
   }
+  if (action.type === "error") {
+    return {
+      idArray: action.favArray,
+      refArray: action.refArray,
+    };
+  }
 };
 
 export const DataContextProvider = (props) => {
   const [moviesHomeList, setMoviesHomeList] = useState([]);
+  const [errorNotification, setErrorNotification] = useState(false);
   const [favoriteState, dispatchFavoriteState] = useReducer(
     favoriteReducer,
     initialFavorites
@@ -45,7 +54,13 @@ export const DataContextProvider = (props) => {
     fetch(
       "https://netflix-clone-a2820-default-rtdb.firebaseio.com/HomeSection.json"
     )
-      .then((data) => data.json())
+      .then((data) => {
+        if (!data.ok) {
+          throw Error("Failed to fetch the data");
+        } else {
+          return data.json();
+        }
+      })
       .then((data) => {
         for (const key in data) {
           moviesArray.push({
@@ -54,6 +69,10 @@ export const DataContextProvider = (props) => {
           });
         }
         setMoviesHomeList(moviesArray);
+      })
+      .catch((error) => {
+        console.log(error);
+        setMoviesHomeList(undefined);
       });
 
     let moviesID = [];
@@ -61,7 +80,13 @@ export const DataContextProvider = (props) => {
     fetch(
       "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json"
     )
-      .then((data) => data.json())
+      .then((data) => {
+        if (!data.ok) {
+          throw Error("Failed to fetch the data");
+        } else {
+          return data.json();
+        }
+      })
       .then((data) => {
         for (const key in data) {
           moviesID.push(data[key]);
@@ -73,43 +98,70 @@ export const DataContextProvider = (props) => {
           favArray: moviesID,
           refArray: refsID,
         });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatchFavoriteState({
+          type: "error",
+          favArray: undefined,
+          refArray: undefined,
+        });
       });
   }, []);
 
   const addToFavoriteHandler = async (id) => {
-    const response = await fetch(
-      "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json",
-      {
-        method: "POST",
-        body: JSON.stringify(id),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    try {
+      const response = await fetch(
+        "https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites.json",
+        {
+          method: "POST",
+          body: JSON.stringify(id),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Connection failed");
       }
-    );
-    const data = await response.json();
+      const data = await response.json();
 
-    const ref = data.name;
+      const ref = data.name;
 
-    dispatchFavoriteState({ type: "addFavorite", id: id, ref: ref });
+      dispatchFavoriteState({ type: "addFavorite", id: id, ref: ref });
+    } catch (error) {
+      setErrorNotification(true);
+    }
   };
 
   const removeFavoriteHandler = async (id) => {
+    setErrorNotification(false);
     const movieIndex = favoriteState.idArray.indexOf(id);
     const removedRef = favoriteState.refArray[movieIndex];
 
     fetch(
       `https://netflix-clone-a2820-default-rtdb.firebaseio.com/favorites/${removedRef}.json`,
       { method: "DELETE" }
-    ).then((data) => {
-      console.log(data);
-    });
+    )
+      .then((data) => {
+        if (!data.ok) {
+          throw new Error("Failed to fetch the data");
+        } else {
+          dispatchFavoriteState({
+            type: "deleteFavorites",
+            id: id,
+            ref: removedRef,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorNotification(true);
+      });
+  };
 
-    dispatchFavoriteState({
-      type: "deleteFavorites",
-      id: id,
-      ref: removedRef,
-    });
+  const hideNotificationHandler = () => {
+    setErrorNotification(false);
   };
 
   const context = {
@@ -117,6 +169,8 @@ export const DataContextProvider = (props) => {
     moviesHomeList,
     addToFavoriteHandler,
     idArray: favoriteState.idArray,
+    errorNotification,
+    hideNotificationHandler,
   };
 
   return (

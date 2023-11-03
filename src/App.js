@@ -8,11 +8,21 @@ import MovieModal from "./UI/MovieModal";
 import Backdrop from "./UI/Backdrop";
 import AppContext from "./context/appContext";
 import DataContext from "./context/dataContext";
+import Notification from "./components/Notification";
 
 function App() {
   const { showModal, mainView, searchView, favoritesView } =
     useContext(AppContext);
-  const { moviesHomeList } = useContext(DataContext);
+  const { moviesHomeList, errorNotification } = useContext(DataContext);
+
+  if (!moviesHomeList) {
+    return (
+      <>
+        <Header />
+        <p className="error">Failed to fetch the data. Try again... </p>;
+      </>
+    );
+  }
 
   return (
     <>
@@ -32,6 +42,7 @@ function App() {
           ))}
       </main>
       <Footer />
+      {errorNotification && <Notification />}
     </>
   );
 }

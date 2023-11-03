@@ -9,16 +9,32 @@ import DataContext from "../context/dataContext";
 const MovieModal = () => {
   const { closeModalHandler, id } = useContext(AppContext);
 
-  const { addToFavoriteHandler, removeFavoriteHandler, idArray } =
-    useContext(DataContext);
+  const {
+    addToFavoriteHandler,
+    removeFavoriteHandler,
+    idArray,
+    errorNotification,
+  } = useContext(DataContext);
 
-  const { movieData, isLoaded, fetchMovies } = useMoviesData();
+  const { movieData, isLoaded, fetchMovies, isError } = useMoviesData();
 
   useEffect(() => {
     fetchMovies(id, true, idArray);
   }, [fetchMovies, id, idArray]);
 
+  if (isError) {
+    return (
+      <dialog className={classes.modal}>
+        <p className="error">Failed to fetch the data. Try again... </p>
+      </dialog>
+    );
+  }
+
   const favoriteHandler = (event) => {
+    if (errorNotification) {
+      return;
+    }
+
     if (movieData.isFavorite) {
       removeFavoriteHandler(id);
       movieData.isFavorite = false;

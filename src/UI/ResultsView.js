@@ -9,7 +9,7 @@ const ResultsView = () => {
   const { query, openModalHandler, favoritesView } = useContext(AppContext);
   const { idArray } = useContext(DataContext);
 
-  const { movieData, fetchMovies, isLoaded } = useMoviesData();
+  const { movieData, fetchMovies, isLoaded, isError } = useMoviesData();
 
   useEffect(() => {
     if (favoritesView) {
@@ -18,6 +18,12 @@ const ResultsView = () => {
       fetchMovies(query, false, null);
     }
   }, [fetchMovies, query, favoritesView, idArray]);
+
+  if (isError || !idArray) {
+    return (
+      <p className='error'>Failed to fetch the data. Try again... </p>
+    );
+  }
 
   if (!isLoaded) {
     return <p className={classes.loading}>Loading...</p>;

@@ -8,13 +8,17 @@ import useMoviesData from "../hooks/use-movies";
 const SliderView = ({ query, title }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  const { movieData, isLoaded, fetchMovies, addToFavoriteHandler } =
+  const { movieData, isLoaded, fetchMovies, addToFavoriteHandler, isError } =
     useMoviesData();
   const { openModalHandler } = useContext(AppContext);
 
   useEffect(() => {
     fetchMovies(query, false, null);
   }, [fetchMovies, query]);
+
+  if (isError) {
+    return <p className="error">Failed to fetch the data. Try again... </p>;
+  }
 
   const slideHandler = (direction) => {
     const sliderLength = movieData.length - 8; // how to not hardcode

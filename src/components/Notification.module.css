@@ -1,0 +1,26 @@
+.notification {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  background-color: #c94c4c;
+  opacity: 0.9;
+  padding: 0 8px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  height: 3rem;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  z-index: 3;
+}
+
+.notification h2 {
+  margin: 0;
+}
+
+.notification p {
+  margin: 0;
+}
