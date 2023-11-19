@@ -21,3 +21,28 @@
   align-items: center;
   cursor: pointer;
 }
+
+@media (max-width: 75rem) {
+  .list {
+    font-size: 0.71rem;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .navigation {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    justify-content: space-between;
+  }
+  .list {
+    font-size: 0.813rem;
+  }
+
+  .logo {
+    font-size: 1.875rem;
+  }
+}

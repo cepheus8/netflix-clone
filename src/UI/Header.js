@@ -33,7 +33,7 @@ const Header = () => {
           <SearchBar ref={inputRef} onBlurHandler={exitSearchHandler} />
         </div>
       )}
-      <div>
+      <div className={classes.iconsContainer}>
         <Icons
           onSearch={startSearchHandler}
           hideSearchIcon={showSearchBar}

@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background-color: #000000;
   margin: auto 1.875rem;
@@ -21,4 +25,22 @@ main {
   color: #e50914;
   font-size: 1.25rem;
   text-align: center;
+}
+
+@media (max-width: 42.5rem) {
+  main {
+    height: 77.875rem;
+  }
+}
+
+@media (max-width: 33.25rem) {
+  main {
+    height: 68.145rem;
+  }
+}
+
+@media (max-width: 25.75rem) {
+  main {
+    height: 56.145rem;
+  }
 }

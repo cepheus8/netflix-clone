@@ -29,4 +29,52 @@
   top: 4.688rem;
 }
 
+@media (max-width: 42.5rem) {
+  /* .title {
+    width: 38rem;
+  } */
 
+  .arrowLeft {
+    font-size: 4.45rem;
+    top: 4.173rem;
+  }
+
+  .arrowRight {
+    font-size: 4.45rem;
+    top: 4.173rem;
+  }
+}
+
+@media (max-width: 33.25rem) {
+  .title {
+    width: 28rem;
+    font-size: 1rem;
+  }
+
+  .arrowLeft {
+    font-size: 3.89rem;
+    top: 3.653rem;
+  }
+
+  .arrowRight {
+    font-size: 3.89rem;
+    top: 3.653rem;
+  }
+}
+
+@media (max-width: 25.75rem) {
+  .title {
+    width: 20rem;
+    font-size: 0.9rem;
+  }
+
+  .arrowLeft {
+    font-size: 2.79rem;
+    top: 2.612rem;
+  }
+
+  .arrowRight {
+    font-size: 2.79rem;
+    top: 2.612rem;
+  }
+}

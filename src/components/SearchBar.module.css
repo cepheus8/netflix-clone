@@ -24,3 +24,27 @@
     transform: translate(0, 0);
   }
 }
+
+@media (max-width: 75rem) {
+  .input {
+    width: 20rem;
+  }
+}
+
+@media (max-width: 53.75rem) {
+  .input {
+    width: 13rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .input {
+    width: 18rem;
+  }
+}
+
+@media (max-width: 33rem) {
+  .input {
+    width: 13rem;
+  }
+}

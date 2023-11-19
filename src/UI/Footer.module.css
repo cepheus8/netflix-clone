@@ -9,3 +9,13 @@
   color: #fff;
   font-size: 2.188rem;
 }
+
+@media (max-width: 33.25rem) {
+  .copyright {
+    font-size: 0.805rem;
+  }
+
+  .footerIcons {
+    font-size: 1.878rem;
+  }
+}

@@ -7,3 +7,13 @@
 .searchBar {
   justify-self: center;
 }
+
+@media (max-width: 48rem) {
+  .header {
+    display: grid;
+  }
+  .iconsContainer {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+}

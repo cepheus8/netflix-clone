@@ -9,3 +9,9 @@
   list-style: none;
   gap: 1.25rem;
 }
+
+@media (max-width: 48rem) {
+  .iconsList {
+    justify-content: center;
+  }
+}
