@@ -12,19 +12,20 @@ Netflix-clone is a completely self-designed and made responsive React project in
 
 Using modern tools offered by the React language and the publicly available OMDb API, I wanted to create a website design as close to the Netflix as possible.
 
-You can browse through movies data base by individuall queries which return list of 40 most matching results.
+You can browse through movies database by individual queries which return list of 40 most matching results.
 Find out more about specific movie by clicking on the poster and add to the favorites list if You like!
 
 ### Features
 
-The project contains many crucial features of React that I learned so far:
+The project contains many crucial features of React and JavaScript that I learned so far:
 
 - hooks,
 - custome hook,
 - context API,
-- carousel compnent,
+- carousel component,
 - CSS modules,
 - fetch API
+- media queries
 
 in purpose of creating my first "top to bottom" self-made React based portfolio site.
 
