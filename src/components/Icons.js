@@ -6,7 +6,11 @@ const Icons = ({ onSearch, hideSearchIcon, isFocused }) => {
   return (
     <ul className={classes.iconsList}>
       <li>
-        {!hideSearchIcon && !isFocused && <VscSearch onClick={onSearch} />}
+        {!hideSearchIcon && !isFocused && (
+          <button className={classes.searchButton}>
+            <VscSearch onClick={onSearch} />
+          </button>
+        )}
       </li>
     </ul>
   );

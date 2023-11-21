@@ -19,4 +19,16 @@
   text-align: center;
 }
 
+@media (max-width: 76.5rem) {
+  .resultsList {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.3rem 0.5rem;
+  }
+}
 
+@media (max-width: 51.5rem) {
+  .resultsList {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.3rem 0.5rem;
+  }
+}

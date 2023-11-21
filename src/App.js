@@ -41,7 +41,7 @@ function App() {
             <SliderView title={mov.title} query={mov.Query} key={mov.id} />
           ))}
       </main>
-      <Footer />
+      {<Footer />}
       {errorNotification && <Notification />}
     </>
   );

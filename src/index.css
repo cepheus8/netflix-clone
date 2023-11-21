@@ -17,7 +17,7 @@ body {
 }
 
 main {
-  height: 87.5rem;
+  height: 87rem;
   width: 100hv;
 }
 
@@ -27,20 +27,8 @@ main {
   text-align: center;
 }
 
-@media (max-width: 42.5rem) {
+@media (max-width: 76.5rem) {
   main {
-    height: 77.875rem;
-  }
-}
-
-@media (max-width: 33.25rem) {
-  main {
-    height: 68.145rem;
-  }
-}
-
-@media (max-width: 25.75rem) {
-  main {
-    height: 56.145rem;
+    height: auto;
   }
 }

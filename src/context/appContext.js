@@ -48,7 +48,7 @@ const viewReducer = (state, action) => {
 
 export const AppContextProvider = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [movieID, setmovieID] = useState();
+  const [movieID, setmovieID] = useState("");
   const [query, setQuery] = useState("");
 
   const [viewState, dispatchViewState] = useReducer(viewReducer, initialView);
