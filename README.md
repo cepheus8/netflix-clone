@@ -8,7 +8,7 @@ After cloning repo run npm install command to install all packages from package.
 
 ### About
 
-Netflix-clone is a completely self-designed and made React project inspired by the popular netflix website, created for educational purposes only.
+Netflix-clone is a completely self-designed and made responsive React project inspired by the popular netflix website, created for educational purposes only.
 
 Using modern tools offered by the React language and the publicly available OMDb API, I wanted to create a website design as close to the Netflix as possible.
 
@@ -27,8 +27,6 @@ The project contains many crucial features of React that I learned so far:
 - fetch API
 
 in purpose of creating my first "top to bottom" self-made React based portfolio site.
-
-The features than can be implemented in the future: media queries.
 
 ### Preview
 
